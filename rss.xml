@@ -2,7 +2,7 @@
 <rss version="2.0">  <channel>
     <title>Blog Title</title>
     <link>http://sample.com</link>
-    <pubDate>20 Oct 13 22:15 +0800</pubDate>
+    <pubDate>20 Oct 13 22:38 +0800</pubDate>
     <item>
       <title>Eclipse Cygwin CDT 搭建C/C++开发环境</title>
       <link>http://sample.com/2013/eclipse-cygwin-cdt-c-cpp-dev-env</link>
