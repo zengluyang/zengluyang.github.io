@@ -1,0 +1,31 @@
+---
+layout: post
+title: Install PP2P VPN Server on Ubuntu
+categories:
+- 未分类
+tags: []
+published: true
+date: '2013-10-07'
+permalink: /2013/install-pp2p-vpn-server-on-ubuntu
+---
+<p>接着用下面的命令更新你的软件包数据库
+<pre>apt-get update</pre>
+现在我们可以正式安装VPN Server了。这里我们选择PPTP(VPN 协议的一种),因为简单，一条命令搞定。剩下的无非是一些配置。
+<pre>apt-get install PPTPd</pre>
+PPTPd安装完成后，编辑/etc/PPTPd.conf文件，去掉下面两行的注释或者直接添加这两行(在文件的最后).这一步是配置ip地址的范围。
+<pre>localip 192.168.7.1 remoteip 192.168.0.2-254</pre>
+然后在/etc/ppp/chap-secrets文件中添加VPN用户，按照下面的格式,每个用户一行。
+<pre>username PPTPd password *</pre>
+为了让你的用户连上VPN后能够正常地解析域名，我们需要手动设置DNS. 编辑/etc/ppp/options，找到ms-dns这一项，设置你的DNS.这里我推荐的是Google 最近发布的<a href="http://code.google.com/speed/public-dns/" target="_blank">Public DNS</a>,原因是因为好记。
+<pre>ms-dns 8.8.8.8 ms-dns 8.8.4.4</pre>
+编辑/etc/sysctl.conf文件，找到”net.ipv4.ip_forward=1″这一行，去掉前面的注释。
+<pre>net.ipv4.ip_forward=1</pre>
+运行下面的命令让配置生效。
+<pre>sysctl -p</pre>
+重启PPTPd服务
+<pre>/etc/init.d/PPTPd restart</pre>
+最后开启iptables转发
+<pre>/sbin/iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE</pre>
+将上面的命令加到/etc/rc.local exit 0 前面，开机自动添加NAT转发路由。</p>
+
+<p>OK,安装完毕。</p>

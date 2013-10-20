@@ -1,0 +1,24 @@
+---
+title: 首页
+description:
+---
+
+<h2>Welcome!</h2>
+
+
+
+<h2>最近更新</h2>
+
+{{# posts_latest }}
+<div class="post">
+  <h1 class="title"><a href="{{url}}">{{title}}</a> <span class="date">{{ date }}</span></h1>
+
+  {{{ content }}}
+	
+<!---
+  <div class="more">
+    <a href="{{url}}" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+{{/ posts_latest }}

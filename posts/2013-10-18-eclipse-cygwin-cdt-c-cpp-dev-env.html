@@ -1,0 +1,109 @@
+---
+layout: post
+title: Eclipse Cygwin CDT 搭建C/C++开发环境
+categories:
+- 未分类
+tags: []
+published: true
+date: '2013-10-18'
+permalink: /2013/eclipse-cygwin-cdt-c-cpp-dev-env
+---
+<p><a href="http://staratsky.iteye.com/blog/1541645">via</a></p>
+
+<p>Cygwin 是一个用于 Windows 的类 UNIX shell 环境。 它由两个组件组成：一个 UNIX API 库，它模拟 UNIX 操作系统提供的许多特性；以及 Bash shell 的改写版本和许多 UNIX 实用程序，它们提供大家熟悉的 UNIX 命令行界面。前一个组件是一个 Windows 动态链接库 (DLL)。后一个组件是一组基于 Cygwin DLL 的程序，其中许多是用未经修改的 UNIX 源代码编译的。它们合在一起提供大家熟悉的 UNIX 环境。<br />
+Eclipse CDT 是 Eclipse 插件，它将把 Eclipse 转换为功能强大的 C/C++ IDE.<br />
+利用CDT和cygwin,eclipse可以在windows环境下开发c、c++程序<br />
+需要注意的是:CDT版本和Eclipse版本必须对应，否则加载插件不成功
+<h2>1.下载Eclipse</h2>
+首先在eclipse官网上下载GalEclipse IDE for C/C++ Developers (includes Incubating components)版本,<br />
+地址是http://www.eclipse.org/downloads/
+<h2>2、下载并安装Cygwin</h2>
+Cygwin的官方网站下载Cygwin的安装程序，Cygwin的官方网址是：http://www.cygwin.com/。安装文件名称setup.exe.<br />
+下载完成后，运行setup.exe程序，出现安装画面。直接点“下一步”，出现安装模式的对话框
+<ul>
+	<li>1）选择安装模式
+<ul>
+	<li>Cygwin有三种安装模式：
+<ul>
+	<li>•Install from Internet，这种模式直接从Internet安装；</li>
+	<li>•Download Without Installing，这种模式只从网上下载Cygwin的组件包，但不安装；</li>
+	<li>•Install from Local Directory，这种模式与上面第二种模式对应，当你的Cygwin组件包已经下载到本地，则可以使用此模式从本地安装Cygwin。</li>
+</ul>
+</li>
+</ul>
+<ul>
+	<li>一般选择第一种安装模式。</li>
+	<li>选择完成后，点击下一步。</li>
+</ul>
+</li>
+	<li>2）选择cygwin安装根目录
+<ul>
+	<li>这一步选择Cygwin的安装目录，以及一些参数的设置。程序默认的安装位置是C:\cygwin\，如没有特殊要求，选择默认方式，点击“下一步”</li>
+</ul>
+</li>
+	<li>3)指定下载存放目录
+<ul>
+	<li>这一步我们可以选择安装过程中从网上下载的Cygwin组件包的保存位置，选择完以后，点击“下一步”，</li>
+</ul>
+</li>
+	<li>4）选择你的连接方式
+<ul>
+	<li>一般选择“direct connection”,然后点击下一步</li>
+	<li>选择下载站点,为了获得最快的下载速度，我们首先在列表中寻找Cygwin中国镜像的地址</li>
+</ul>
+</li>
+	<li>5）选择需要下载安装的组件包，
+<ul>
+	<li>为了使我们安装的Cygwin能够编译程序，我们需要安装gcc编译器，默认情况下，gcc并不会被安装，我们需要选中它来安装。为了安装gcc，“Devel”选项设为install</li>
+	<li>-Devel，是一组开发工具，包括连接器，汇编器和其他用于目标文件和档案的工具（gcc、make、gdb）。</li>
+</ul>
+</li>
+	<li>以下进入安装过程。安装完成后，启动cygwin环境，在cyg环境下输入：gcc –version</li>
+	<li>如果安装成功，则正常打印版本信息</li>
+</ul>
+<h2>3、安装cdt插件</h2>
+打开eclipse,打开help--&gt;install new software菜单项，在location项中输入：http://download.eclipse.org/tools/cdt/releases/indigo。<br />
+一般情况下，把所有的安装选项都选上。<br />
+安装完之后，重启eclipse。<br />
+如能在Eclipse的Preferences上看到C/C++的配置，则说明插件安装成功
+<h2>4、用eclipse运行一个hello world</h2>
+<ul>
+	<li>1)新建一个c/c++项目</li>
+	<li>2)为本项目设定编译值支持
+<ul>
+	<li>C/C++ General -&gt; Paths and Symbols</li>
+	<li>Includes TAB页增加本项目头文件路径</li>
+	<li>Library Paths 指定自定义库路径</li>
+	<li>Source Location 指定源码目录</li>
+	<li>C/C++ Build -&gt; Tool Chain Editor</li>
+	<li>Current toolchains: Cygwin GCC</li>
+	<li>Current builder: Gnu Make Builder</li>
+	<li>C/C++ Build-&gt;Setting-&gt;Binary Parsers</li>
+	<li>选中Cygwin PE Parser</li>
+	<li>如果在新建项目的时候没有设置toolchain</li>
+	<li>在项目上右键打开属性</li>
+	<li>properties-&gt;C/C++ Build-&gt;Tool Chain Editor 按上面修改</li>
+</ul>
+</li>
+	<li>3）debug常见错误
+<ul>
+	<li>错误1：Can't find a source file at "xxxxx“Locate the file or edit the source lookup path to include its location
+<ul>
+	<li>简单的说就是windows目录与unix文档目录间映射出了问题。由于GDB使用的unix格式的路径，而eclipse使用的是windows路径，导致找不到匹配的代码，需要手工设置：</li>
+	<li>在windows-&gt;preference-&gt;c/c++-&gt;debug-&gt;source lookup path中，添加一条目录映射，将/cygdrive/c映射为c:\，这样gdb将可正确找到存放于e盘相应目录下的源文件。映射有优先次序，将此条置于最上一条，即可正常调试。</li>
+</ul>
+</li>
+</ul>
+<ul>
+</ul><ul>
+	<li>错误2：launch failed no binaries错误，
+<ul>
+	<li>原因：window-&gt;proferences的设置对 project不起作用，需要在 project-&gt; properties 中对 c/c++ make project 的 binary parse 进行设置到 win 下。</li>
+	<li>project--&gt;properties--&gt;C/C++ Build--&gt;Settings---&gt;Binary Parsers</li>
+	<li>将PE Windows parser 打上勾</li>
+</ul>
+</li>
+</ul>
+</li></ul>
+
+</p>

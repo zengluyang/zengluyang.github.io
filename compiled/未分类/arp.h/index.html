@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>arp.h</title>
+  
+    <meta name="author" content="Firstname Lastname">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/twitter/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/stylesheets/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+ 
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Blog Title</a>
+          <ul class="nav">
+            
+              
+
+
+  <li><a href="/archive">Archive</a></li>
+
+
+            
+              
+
+
+  <li><a href="/tags">Tags</a></li>
+
+
+            
+              
+
+
+  <li><a href="/categories">Categories</a></li>
+
+
+            
+              
+
+
+  <li><a href="/pages">Pages</a></li>
+
+
+            
+              
+
+
+  <li><a href="/about">About Me</a></li>
+
+
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+  <h1>arp.h </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <p><pre lang="cpp">
+/*-*- Mode:C++; c-basic-offset:8; tab-width:8; indent-tabs-mode:t -*- */
+/*
+* Copyright (c) 1997 Regents of the University of California.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+* 1. Redistributions of source code must retain the above copyright
+* notice, this list of conditions and the following disclaimer.
+* 2. Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in the
+* documentation and/or other materials provided with the distribution.
+* 3. All advertising materials mentioning features or use of this software
+* must display the following acknowledgement:
+* This product includes software developed by the Computer Systems
+* Engineering Group at Lawrence Berkeley Laboratory.
+* 4. Neither the name of the University nor of the Laboratory may be used
+* to endorse or promote products derived from this software without
+* specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+*/
+/* Ported from CMU/Monarch's code, nov'98 -Padma.*/</pre></p>
+
+<p>#ifndef __arp_h__<br />
+#define __arp_h__</p>
+
+<p>#include "scheduler.h"<br />
+#include "delay.h"<br />
+#include "lib/bsd-list.h"</p>
+
+<p>#ifndef EADDRNOTAVAIL<br />
+#define EADDRNOTAVAIL 125<br />
+#endif /* !EADDRNOTAVAIL */</p>
+
+<p>class LinkDelay;<br />
+class ARPEntry;<br />
+class ARPTable;<br />
+class LL;<br />
+class Mac;</p>
+
+<p>LIST_HEAD(ARPTable_List, ARPTable);<br />
+LIST_HEAD(ARPEntry_List, ARPEntry);</p>
+
+<p>/* ======================================================================<br />
+Address Resolution (ARP) Header<br />
+====================================================================== */<br />
+#define ARPHRD_ETHER 1 /* ethernet hardware format */</p>
+
+<p>#define ARPOP_REQUEST 1 /* request to resolve address */<br />
+#define ARPOP_REPLY 2 /* response to previous request */<br />
+#define ARPOP_REVREQUEST 3 /* request protocol address */<br />
+#define ARPOP_REVREPLY 4 /* response giving protocol address */<br />
+#define ARPOP_INVREQUEST 8 /* request to identify peer */<br />
+#define ARPOP_INVREPLY 9 /* response identifying peer */</p>
+
+<p>#define ARP_HDR_LEN 28</p>
+
+<p>struct hdr_arp {<br />
+u_int16_t arp_hrd;<br />
+u_int16_t arp_pro;<br />
+u_int8_t arp_hln;<br />
+u_int8_t arp_pln;<br />
+u_int16_t arp_op;<br />
+int arp_sha;<br />
+u_int16_t pad1; // so offsets are correct<br />
+nsaddr_t arp_spa;<br />
+int arp_tha;<br />
+u_int16_t pad2; // so offsets are correct<br />
+nsaddr_t arp_tpa;</p>
+
+<p>// Header access methods<br />
+static int offset_; // required by PacketHeaderManager<br />
+inline static int&amp; offset() { return offset_; }<br />
+inline static hdr_arp* access(const Packet* p) {<br />
+return (hdr_arp*) p-&gt;access(offset_);<br />
+}
+};</p>
+
+<p>class ARPEntry {<br />
+friend class ARPTable;<br />
+public:<br />
+ARPEntry(ARPEntry_List* head, nsaddr_t dst) {<br />
+up_ = macaddr_ = count_ = 0;<br />
+ipaddr_ = dst;<br />
+hold_ = 0;<br />
+LIST_INSERT_HEAD(head, this, arp_link_);<br />
+}
+inline ARPEntry* nextarp() { return arp_link_.le_next; }</p>
+
+<p>private:<br />
+LIST_ENTRY(ARPEntry) arp_link_;</p>
+
+<p>int up_;<br />
+nsaddr_t ipaddr_;<br />
+int macaddr_;<br />
+Packet *hold_;<br />
+int count_;<br />
+#define ARP_MAX_REQUEST_COUNT 3<br />
+};</p>
+
+<p>class ARPTable : public LinkDelay {<br />
+public:<br />
+ARPTable(const char *tclnode, const char *tclmac);</p>
+
+<p>int command(int argc, const char*const* argv);<br />
+int arpresolve(nsaddr_t dst, Packet *p, LL *ll);<br />
+void arpinput(Packet *p, LL *ll);<br />
+ARPEntry* arplookup(nsaddr_t dst);<br />
+void arprequest(nsaddr_t src, nsaddr_t dst, LL *ll);</p>
+
+<p>void Terminate(void);</p>
+
+<p>private:<br />
+inline int initialized() { return node_ &amp;&amp; mac_; }</p>
+
+<p>ARPEntry_List arphead_;<br />
+MobileNode *node_;<br />
+Mac *mac_;</p>
+
+<p>/*<br />
+* Used to purge all of the ll-&gt;hold packets at the end of the<br />
+* simulation.<br />
+*/<br />
+public:<br />
+LIST_ENTRY(ARPTable) link_;<br />
+static ARPTable_List athead_;<br />
+};</p>
+
+<p>#endif /* __arp_h__ */
+</p>
+
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+            <li class="prev"><a href="/未分类/%E4%B8%96%E7%95%8C%EF%BC%8C%E4%BD%A0%E5%A5%BD%EF%BC%81/" title="世界，你好！">&larr; Previous</a></li>
+          
+          
+
+            <li><a href="/archive">Archive</a></li>
+
+          
+            <li class="next"><a href="/2013/new-born.html" title="你的第一篇博客">Next &rarr;</a></li>
+          
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
+    
+<div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2013-09-12</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#%E6%9C%AA%E5%88%86%E7%B1%BB-ref">未分类 <span>12</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    </ul>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; Firstname Lastname 2013 
+          with help from <a href="http://github.com/wendal/gor" target="_blank" title="Gor -- Fast Blog">Gor</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+		  and Idea from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>

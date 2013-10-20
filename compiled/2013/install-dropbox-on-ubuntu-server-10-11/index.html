@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Install Dropbox On Ubuntu Server (10 &amp; 11)</title>
+  
+    <meta name="author" content="Firstname Lastname">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/twitter/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/stylesheets/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+ 
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Blog Title</a>
+          <ul class="nav">
+            
+              
+
+
+  <li><a href="/archive">Archive</a></li>
+
+
+            
+              
+
+
+  <li><a href="/tags">Tags</a></li>
+
+
+            
+              
+
+
+  <li><a href="/categories">Categories</a></li>
+
+
+            
+              
+
+
+  <li><a href="/pages">Pages</a></li>
+
+
+            
+              
+
+
+  <li><a href="/about">About Me</a></li>
+
+
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
+  <h1 class="entry-title">Install Dropbox On Ubuntu Server (10 &amp; 11) </h1>
+</div>
+
+<div class="row">
+  <div class="span8">
+	<div class="entry-content">
+    <p><a href="http://ubuntuservergui.com/ubuntu-server-guide/install-dropbox-ubuntu-server">via</a></p>
+
+<p>This post will help you install the Linux Dropbox client on your headless Ubuntu Server and link it up to your Dropbox account. Unlike the process of <a href="http://ubuntuservergui.com/ubuntu-server-guide/mount-s3-ubuntu-server">mounting an S3 bucket</a> we looked at before the Dropbox approach is a much better solution for sharing files. If you’re a daily Dropbox user you’ll quickly get hooked on the convenience of having your servers in the same file sharing loop as all your other Dropbox connected devices!</p>
+
+<p>&nbsp;
+<h4>Installing Dropbox</h4>
+Start off by downloading the Linux version of Dropbox onto your server. These steps have been tested on Ubuntu Server 10.10 and 11.04.</p>
+
+<p>Download the <em>32Bit Version</em>
+<div>
+<div>
+<pre>wget -O dropbox.tar.gz "http://www.dropbox.com/download/?plat=lnx.x86"</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Download the <em>64Bit Version</em>
+<div>
+<div>
+<pre>wget -O dropbox.tar.gz "http://www.dropbox.com/download/?plat=lnx.x86_64"</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>If you unsure which version you need you can quickly check by running <em>uname -a</em>.
+<div>
+<div>
+<pre>sudo uname -a</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>If the uname output has an <em>i686</em> at the end you need the 32Bit version and if it has<em>x86_64</em> you want the 64Bit version.</p>
+
+<p>When you extract the Dropbox archive it will automatically place its files in the home directory of the the user you’re logged in as under: <em>~/.dropbox</em>. You can always move these files later but its something to keep in mind.</p>
+
+<p>Extract the Dropbox archive
+<div>
+<div>
+<pre>tar -xzvf dropbox.tar.gz</pre>
+</div>
+</div>
+&nbsp;
+<h4>Linking Your Server to Your Dropbox Account</h4>
+Before you take the next step you’ll want to make sure your LANG <a href="https://help.ubuntu.com/community/EnvironmentVariables" target="_blank">environment variable</a> is set to a value other than NULL.</p>
+
+<p>Check the value of your <em>LANG</em> environment variable
+<div>
+<div>
+<pre>printenv LANG     // outputs en_US.UTF-8 on my machine</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>To connect the Dropbox client on your server to your Dropbox account you’ll need to copy the link it outputs into a browser window and then login to your Dropbox account.</p>
+
+<p>Run dropboxd on your server
+<div>
+<div>
+<pre>~/.dropbox-dist/dropboxd</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>It will start outputting a link similar to this one every few seconds
+<div>
+<div>
+<pre>This client is not linked to any account...
+Please visit https://www.dropbox.com/cli_link?host_id=1c1497d78b543178b9349a7c1a8b087a&amp;cl=en_US to link this machine.</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>The trick to a smooth link is to make sure you <strong>leave dropboxd running while you follow the link</strong>. You don’t need to access the link from the server you’re trying to install Dropbox on. You can copy and paste that link into a browser running on a separate machine and Dropbox will authorize the client running on your server.</p>
+
+<p>Once it succeeds you’ll see the message <em>Client successfully linked, Welcome!</em> on your server and it will stop printing the authorization link.</p>
+
+<p>Hit ctrl c to terminate the process
+<div>
+<div>
+<pre>Client successfully linked, Welcome!</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Once the Dropbox client on your server is successfully linked it will automatically create a Dropbox folder under ~/Dropbox for the user you’re logged in as. All your folders will be visible under the Dropbox folder but since the Dropbox service isn’t actually running on your server yet you you won’t be able to see the files inside these folders until the client is running and has a check to synchronize.</p>
+
+<p>You can manually start the service by running
+<div>
+<div>
+<pre>~/.dropbox-dist/dropbox</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>However, a better option for controlling the Dropbox client is to setup an Ubuntu service management script for it.
+<h4>Start Dropbox Automatically On Boot</h4>
+Dropbox provides a handy little service management script that makes it easy to start, stop and check the status of the Dropbox client.</p>
+
+<p>Create a new file for the service management script
+<div>
+<div>
+<pre>sudo vi /etc/init.d/dropbox</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Paste the following script into the new file
+<div>
+<div>
+<pre lang="bash">#!/bin/sh
+# dropbox service
+# Replace with linux users you want to run Dropbox clients for
+DROPBOX_USERS="user1 user2"</pre></div></div></p>
+
+<p>DAEMON=.dropbox-dist/dropbox</p>
+
+<p>start() {<br />
+    echo "Starting dropbox..."<br />
+    for dbuser in $DROPBOX_USERS; do<br />
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
+        if [ -x $HOMEDIR/$DAEMON ]; then<br />
+            HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $HOMEDIR/$DAEMON<br />
+        fi<br />
+    done<br />
+}</p>
+
+<p>stop() {<br />
+    echo "Stopping dropbox..."<br />
+    for dbuser in $DROPBOX_USERS; do<br />
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
+        if [ -x $HOMEDIR/$DAEMON ]; then<br />
+            start-stop-daemon -o -c $dbuser -K -u $dbuser -x $HOMEDIR/$DAEMON<br />
+        fi<br />
+    done<br />
+}</p>
+
+<p>status() {<br />
+    for dbuser in $DROPBOX_USERS; do<br />
+        dbpid=`pgrep -u $dbuser dropbox`<br />
+        if [ -z $dbpid ] ; then<br />
+            echo "dropboxd for USER $dbuser: not running."<br />
+        else<br />
+            echo "dropboxd for USER $dbuser: running (pid $dbpid)"<br />
+        fi<br />
+    done<br />
+}</p>
+
+<p>case "$1" in</p>
+
+<p>    start)<br />
+        start<br />
+        ;;</p>
+
+<p>    stop)<br />
+        stop<br />
+        ;;</p>
+
+<p>    restart|reload|force-reload)<br />
+        stop<br />
+        start<br />
+        ;;</p>
+
+<p>    status)<br />
+        status<br />
+        ;;</p>
+
+<p>    *)<br />
+        echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"<br />
+        exit 1</p>
+
+<p>esac</p>
+
+<p>exit 0
+
+
+&nbsp;</p>
+
+<p>Make sure you replace the value of <em>DROPBOX_USERS</em> with a comma separated list of the linux users on your machine you want to run the Dropbox client to run for. Each user in the list should have a copy of the Dropbox files and folders that you extracted from the archive, available under their home directory.</p>
+
+<p>Make sure the script is executable and add it to default system startup run levels
+<div>
+<div>
+<pre>sudo chmod +x /etc/init.d/dropbox
+sudo update-rc.d dropbox defaults</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Control the Dropbox client like any other Ubuntu service
+<div>
+<div>
+<pre>sudo service dropbox start|stop|reload|force-reload|restart|status</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><img title="Dropbox Delorean By Dropbox Artwork Team" alt="Dropbox Delorean By Dropbox Artwork Team" src="http://ubuntuservergui.com/wp-content/uploads/2011/05/dropbox-delorean.png" width="528" height="296" /></p>
+
+<p>Depending upon the number of files you have on Dropbox and the speed of your internet connection it may take some time for the Dropbox client to synchronize everything.
+<h4>Check Status with Dropbox CLI</h4>
+Dropbox has a command line python script available separately to provide more functionality and details on the status of the Dropbox client.</p>
+
+<p>Download the dropbox.py script and adjust the file permissions
+<div>
+<div>
+<pre>wget -O ~/.dropbox/dropbox.py "http://www.dropbox.com/download?dl=packages/dropbox.py"
+chmod 755 ~/.dropbox/dropbox.py</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>You can download the script anywhere you like, I’ve included it along with the rest of the Dropbox files.</p>
+
+<p>Now you can easily check the status of the Dropbox client
+<div>
+<div>
+<pre>~/.dropbox/dropbox.py status
+Downloading 125 files (303.9 KB/sec, 1 hr left)</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Get a full list of CLI commands
+<div>
+<div>
+<pre>~/.dropbox/dropbox.py help</pre></div></div></p>
+
+<p>Note: use dropbox help &lt;command&gt; to view usage for a specific command.</p>
+
+<p> status       get current status of the dropboxd<br />
+ help         provide help<br />
+ puburl       get public url of a file in your dropbox<br />
+ stop         stop dropboxd<br />
+ running      return whether dropbox is running<br />
+ start        start dropboxd<br />
+ filestatus   get current sync status of one or more files<br />
+ ls           list directory contents with current sync status<br />
+ autostart    automatically start dropbox at login<br />
+ exclude      ignores/excludes a directory from syncing
+
+
+&nbsp;</p>
+
+<p>Use the <em>exclude</em> command to keep specific files or folders from syncing to your server
+<div>
+<div>
+<pre>~/.dropbox/dropbox.py help exclude</pre></div></div></p>
+
+<p>dropbox exclude [list]<br />
+dropbox exclude add [DIRECTORY] [DIRECTORY] ...<br />
+dropbox exclude remove [DIRECTORY] [DIRECTORY] ...</p>
+
+<p>"list" prints a list of directories currently excluded from syncing.  <br />
+"add" adds one or more directories to the exclusion list, then resynchronizes Dropbox. <br />
+"remove" removes one or more directories from the exclusion list, then resynchronizes Dropbox.<br />
+With no arguments, executes "list". <br />
+Any specified path must be within Dropbox.
+
+
+&nbsp;</p>
+
+<p>Once the Dropbox service is running and fully syncrhonized you can access all your Dropbox files and easily share files on your server with all your other Dropbox connected gadgets!</p>
+
+<p>For more resources and troubleshooting tips visit the <a href="http://forums.dropbox.com/" target="_blank">Dropbox forums</a>. Happy syncing!</p>
+
+	</div>
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+            <li class="prev"><a href="/2013/how-to-install-and-use-memcache-on-ubuntu-12-0" title="How To Install and Use Memcache on Ubuntu 12.0">&larr; Previous</a></li>
+          
+          
+
+            <li><a href="/archive">Archive</a></li>
+
+          
+            <li class="next"><a href="/2013/enable-mod-rewrite-in-apache2" title="enable mod rewrite in apache2">Next &rarr;</a></li>
+          
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
+    
+<div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+  
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2013-10-06</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#%E6%9C%AA%E5%88%86%E7%B1%BB-ref">未分类 <span>12</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    </ul>
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; Firstname Lastname 2013 
+          with help from <a href="http://github.com/wendal/gor" target="_blank" title="Gor -- Fast Blog">Gor</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+		  and Idea from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>

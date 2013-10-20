@@ -1,0 +1,55 @@
+---
+layout: post
+title: enable mod rewrite in apache2
+categories:
+- 未分类
+tags: []
+published: true
+date: '2013-09-22'
+permalink: /2013/enable-mod-rewrite-in-apache2
+---
+<p>In order to use mod_rewrite you can type the following command in the terminal:</p>
+
+<p>[plain]a2enmod rewrite<br />
+[/plain]</p>
+
+<p>Restart apache2 after</p>
+
+<p>[plain]/etc/init.d/apache2 restart<br />
+[/plain]</p>
+
+<p>or</p>
+
+<p>[plain]service apache2 restart<br />
+[/plain]</p>
+
+<p>Then, if you'd like, you can use the following .htaccess file.</p>
+
+<pre>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
+&lt;/IfModule&gt;
+</pre>
+
+<p>The above .htaccess file (if placed in your DocumentRoot) will redirect all traffic to an index.php file in the DocumentRoot unless the file exists.</p>
+
+<p>So, let's say you have the following directory structure and httpdocs is the DocumentRoot</p>
+
+<pre>httpdocs/
+    .htaccess
+    index.php
+    images/
+        hello.png
+    js/
+        jquery.js
+    css/
+        style.css
+includes/
+    app/
+        app.php
+</pre>
+
+<p>Any file that exists in httpdocs will be served to the requester using the .htaccess shown above, however, everything else will be redirected to httpdocs/index.php. Your application files in includes/app will not be accessible.</p>

@@ -1,0 +1,36 @@
+---
+layout: post
+title: U盘安装 Ubuntu Server 12.04.3 LTS
+categories:
+- 未分类
+tags: []
+published: true
+date: '2013-09-20'
+permalink: /2013/install-unbuntu-server-via-usb-stick
+---
+<p><ol>
+	<li>格式化U盘，确保U盘是FAT32格式</li>
+	<li>使用<a href="http://sourceforge.net/projects/unetbootin/">Unetbootin</a>将iso文件写入U盘</li>
+	<li>将安装iso拷贝如U盘根目录</li>
+	<li>重启电脑，设置BIOS为USB-HDD启动</li>
+	<li>按照流程安装，会提示找不到CD-ROM</li>
+	<li>ALT+F2 to another console and</li>
+	<li>Mount the usb-stick to /mnt/usb</li>
+	<li>[plain]<br />
+mkdir /mnt/usb</li></ol></p>
+
+<p>tail -n 100 /var/log/syslog<br />
+#determine which one is your usb device</p>
+
+<p>mount -t vfat /dev/your_usb_device/mnt/usb</p>
+
+<p>mount -t iso9660 -o loop /mnt/usb/ubuntu-12.04.3-server-i386 /cdrom</p>
+
+<p>#Mount the server-image file to /cdrom</p>
+
+<p>[/plain]
+	<li>exit from the terminal and ALT+F1 back to main installer screen</li>
+	<li>Press ESC to avoid trying to mount cd-rom</li>
+	<li>In main installer menu chose "Detect and mount CD-rom"</li>
+	<li>按照正常流程安装</li>
+</p>
