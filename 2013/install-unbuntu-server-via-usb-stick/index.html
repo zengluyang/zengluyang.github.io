@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Pages</title>
+    <title>U盘安装 Ubuntu Server 12.04.3 LTS</title>
   
     <meta name="author" content="Firstname Lastname">
 
@@ -56,9 +56,9 @@
 
             
               
-  <li class="active"><a href="/pages" class="active">Pages</a></li>
 
 
+  <li><a href="/pages">Pages</a></li>
 
 
             
@@ -77,59 +77,94 @@
     <div class="container">
 
       <div class="content">
-        
-<div class="page-header">
-  <h1>Pages </h1>
+        <div class="page-header">
+  <h1 class="entry-title">U盘安装 Ubuntu Server 12.04.3 LTS </h1>
 </div>
 
 <div class="row">
-  <div class="span12">
+  <div class="span8">
+	<div class="entry-content">
+    <p><ol>
+	<li>格式化U盘，确保U盘是FAT32格式</li>
+	<li>使用<a href="http://sourceforge.net/projects/unetbootin/">Unetbootin</a>将iso文件写入U盘</li>
+	<li>将安装iso拷贝如U盘根目录</li>
+	<li>重启电脑，设置BIOS为USB-HDD启动</li>
+	<li>按照流程安装，会提示找不到CD-ROM</li>
+	<li>ALT+F2 to another console and</li>
+	<li>Mount the usb-stick to /mnt/usb</li>
+	<li>[plain]<br />
+mkdir /mnt/usb</li></ol></p>
+
+<p>tail -n 100 /var/log/syslog<br />
+#determine which one is your usb device</p>
+
+<p>mount -t vfat /dev/your_usb_device/mnt/usb</p>
+
+<p>mount -t iso9660 -o loop /mnt/usb/ubuntu-12.04.3-server-i386 /cdrom</p>
+
+<p>#Mount the server-image file to /cdrom</p>
+
+<p>[/plain]
+	<li>exit from the terminal and ALT+F1 back to main installer screen</li>
+	<li>Press ESC to avoid trying to mount cd-rom</li>
+	<li>In main installer menu chose "Detect and mount CD-rom"</li>
+	<li>按照正常流程安装</li>
+</p>
+
+	</div>
+    <hr>
+    <div class="pagination">
+      <ul>
+        <ul>
+          
+            <li class="prev"><a href="/2013/php-display-cgminer-status" title="php 显示cgminer当前部分状态">&larr; Previous</a></li>
+          
+          
+
+            <li><a href="/archive">Archive</a></li>
+
+          
+            <li class="next"><a href="/2013/hello-world" title="世界，你好！">Next &rarr;</a></li>
+          
+          
+        </ul>
+      </ul>
+    </div>
+    <hr>
     
-<ul>
+<div id="disqus_thread"></div>
+<script>
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 
+  </div>
   
-
-
-  <li><a href="/about">About Me</a></li>
-
-
-
-  
-
-
-  <li><a href="/archive">Archive</a></li>
-
-
-
-  
-
-
-  <li><a href="/categories">Categories</a></li>
-
-
-
-  
-
-
-  <li><a href="/">首页</a></li>
-
-
-
-  
-
-
-  <li><a href="/pages">Pages</a></li>
-
-
-
-  
-
-
-  <li><a href="/tags">Tags</a></li>
-
-
-
-</ul>
+  <div class="span4">
+    <h4>Published</h4>
+    <div class="date"><span>2013-09-20</span></div>
+    <br>
+    <h4>Categories</h4>
+    <ul class="tag_box">
+    
+      <li>
+  <a href="/categories/#%E6%9C%AA%E5%88%86%E7%B1%BB-ref">未分类 <span>12</span></a>
+</li>
+    
+    </ul>
+    <br>
+    <h4>Tags</h4>
+    <ul class="tag_box">
+    
+    </ul>
   </div>
 </div>
 

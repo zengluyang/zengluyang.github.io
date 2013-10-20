@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>首页</title>
+  
+    <meta name="author" content="Firstname Lastname">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/twitter/stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/stylesheets/style.css" type="text/css" rel="stylesheet" media="all">
+<link href="/assets/twitter/widgets/google_prettify/stylesheets/twitter-bootstrap.css" type="text/css" rel="stylesheet" media="all">
+ 
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">Blog Title</a>
+          <ul class="nav">
+            
+              
+
+
+  <li><a href="/archive">Archive</a></li>
+
+
+            
+              
+
+
+  <li><a href="/tags">Tags</a></li>
+
+
+            
+              
+
+
+  <li><a href="/categories">Categories</a></li>
+
+
+            
+              
+
+
+  <li><a href="/pages">Pages</a></li>
+
+
+            
+              
+
+
+  <li><a href="/about">About Me</a></li>
+
+
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>首页 </h1>
+</div>
+
+<div class="row">
+  <div class="span12">
+    
+<h2>Welcome!</h2>
+
+
+
+<h2>最近更新</h2>
+
+
+<div class="post">
+  <h1 class="title"><a href="/2013/eclipse-cygwin-cdt-c-cpp-dev-env">Eclipse Cygwin CDT 搭建C/C++开发环境</a> <span class="date">2013-10-18</span></h1>
+
+  <p><a href="http://staratsky.iteye.com/blog/1541645">via</a></p>
+
+<p>Cygwin 是一个用于 Windows 的类 UNIX shell 环境。 它由两个组件组成：一个 UNIX API 库，它模拟 UNIX 操作系统提供的许多特性；以及 Bash shell 的改写版本和许多 UNIX 实用程序，它们提供大家熟悉的 UNIX 命令行界面。前一个组件是一个 Windows 动态链接库 (DLL)。后一个组件是一组基于 Cygwin DLL 的程序，其中许多是用未经修改的 UNIX 源代码编译的。它们合在一起提供大家熟悉的 UNIX 环境。<br />
+Eclipse CDT 是 Eclipse 插件，它将把 Eclipse 转换为功能强大的 C/C++ IDE.<br />
+利用CDT和cygwin,eclipse可以在windows环境下开发c、c++程序<br />
+需要注意的是:CDT版本和Eclipse版本必须对应，否则加载插件不成功
+<h2>1.下载Eclipse</h2>
+首先在eclipse官网上下载GalEclipse IDE for C/C++ Developers (includes Incubating components)版本,<br />
+地址是http://www.eclipse.org/downloads/
+<h2>2、下载并安装Cygwin</h2>
+Cygwin的官方网站下载Cygwin的安装程序，Cygwin的官方网址是：http://www.cygwin.com/。安装文件名称setup.exe.<br />
+下载完成后，运行setup.exe程序，出现安装画面。直接点“下一步”，出现安装模式的对话框
+<ul>
+	<li>1）选择安装模式
+<ul>
+	<li>Cygwin有三种安装模式：
+<ul>
+	<li>•Install from Internet，这种模式直接从Internet安装；</li>
+	<li>•Download Without Installing，这种模式只从网上下载Cygwin的组件包，但不安装；</li>
+	<li>•Install from Local Directory，这种模式与上面第二种模式对应，当你的Cygwin组件包已经下载到本地，则可以使用此模式从本地安装Cygwin。</li>
+</ul>
+</li>
+</ul>
+<ul>
+	<li>一般选择第一种安装模式。</li>
+	<li>选择完成后，点击下一步。</li>
+</ul>
+</li>
+	<li>2）选择cygwin安装根目录
+<ul>
+	<li>这一步选择Cygwin的安装目录，以及一些参数的设置。程序默认的安装位置是C:\cygwin\，如没有特殊要求，选择默认方式，点击“下一步”</li>
+</ul>
+</li>
+	<li>3)指定下载存放目录
+<ul>
+	<li>这一步我们可以选择安装过程中从网上下载的Cygwin组件包的保存位置，选择完以后，点击“下一步”，</li>
+</ul>
+</li>
+	<li>4）选择你的连接方式
+<ul>
+	<li>一般选择“direct connection”,然后点击下一步</li>
+	<li>选择下载站点,为了获得最快的下载速度，我们首先在列表中寻找Cygwin中国镜像的地址</li>
+</ul>
+</li>
+	<li>5）选择需要下载安装的组件包，
+<ul>
+	<li>为了使我们安装的Cygwin能够编译程序，我们需要安装gcc编译器，默认情况下，gcc并不会被安装，我们需要选中它来安装。为了安装gcc，“Devel”选项设为install</li>
+	<li>-Devel，是一组开发工具，包括连接器，汇编器和其他用于目标文件和档案的工具（gcc、make、gdb）。</li>
+</ul>
+</li>
+	<li>以下进入安装过程。安装完成后，启动cygwin环境，在cyg环境下输入：gcc –version</li>
+	<li>如果安装成功，则正常打印版本信息</li>
+</ul>
+<h2>3、安装cdt插件</h2>
+打开eclipse,打开help--&gt;install new software菜单项，在location项中输入：http://download.eclipse.org/tools/cdt/releases/indigo。<br />
+一般情况下，把所有的安装选项都选上。<br />
+安装完之后，重启eclipse。<br />
+如能在Eclipse的Preferences上看到C/C++的配置，则说明插件安装成功
+<h2>4、用eclipse运行一个hello world</h2>
+<ul>
+	<li>1)新建一个c/c++项目</li>
+	<li>2)为本项目设定编译值支持
+<ul>
+	<li>C/C++ General -&gt; Paths and Symbols</li>
+	<li>Includes TAB页增加本项目头文件路径</li>
+	<li>Library Paths 指定自定义库路径</li>
+	<li>Source Location 指定源码目录</li>
+	<li>C/C++ Build -&gt; Tool Chain Editor</li>
+	<li>Current toolchains: Cygwin GCC</li>
+	<li>Current builder: Gnu Make Builder</li>
+	<li>C/C++ Build-&gt;Setting-&gt;Binary Parsers</li>
+	<li>选中Cygwin PE Parser</li>
+	<li>如果在新建项目的时候没有设置toolchain</li>
+	<li>在项目上右键打开属性</li>
+	<li>properties-&gt;C/C++ Build-&gt;Tool Chain Editor 按上面修改</li>
+</ul>
+</li>
+	<li>3）debug常见错误
+<ul>
+	<li>错误1：Can't find a source file at "xxxxx“Locate the file or edit the source lookup path to include its location
+<ul>
+	<li>简单的说就是windows目录与unix文档目录间映射出了问题。由于GDB使用的unix格式的路径，而eclipse使用的是windows路径，导致找不到匹配的代码，需要手工设置：</li>
+	<li>在windows-&gt;preference-&gt;c/c++-&gt;debug-&gt;source lookup path中，添加一条目录映射，将/cygdrive/c映射为c:\，这样gdb将可正确找到存放于e盘相应目录下的源文件。映射有优先次序，将此条置于最上一条，即可正常调试。</li>
+</ul>
+</li>
+</ul>
+<ul>
+</ul><ul>
+	<li>错误2：launch failed no binaries错误，
+<ul>
+	<li>原因：window-&gt;proferences的设置对 project不起作用，需要在 project-&gt; properties 中对 c/c++ make project 的 binary parse 进行设置到 win 下。</li>
+	<li>project--&gt;properties--&gt;C/C++ Build--&gt;Settings---&gt;Binary Parsers</li>
+	<li>将PE Windows parser 打上勾</li>
+</ul>
+</li>
+</ul>
+</li></ul>
+
+</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/eclipse-cygwin-cdt-c-cpp-dev-env" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/404-page-we-can-make-a-difference">404 页面，其实我们可以做的更多</a> <span class="date">2013-10-18</span></h1>
+
+  <p>404 页面，除了显示冷冰冰的 404 Not Found 之外，其实我们可以做得更多。QQ空间就把 404页面和失踪的孩子联系到了一起，现在访问到QQ空间的一个任意不存在的页面（404页面），比如：<a href="http://qzone.qq.com/404" target="_blank">http://qzone.qq.com/404</a>，都能看到一个失踪孩子的信息：
+<p style="text-align: center;"><a style="font-size: 1rem; color: #0f3647;" href="http://lux.ssh01.com/blog/wp-content/uploads/2013/10/4041.png"><img class="size-medium wp-image-89 aligncenter" alt="404" src="http://lux.ssh01.com/blog/wp-content/uploads/2013/10/4041.png" /></a></p>
+将 404 页面和失踪的孩子联系在一起最早是国外一个网站 <a href="http://notfound.org/" target="_blank">notfound.org</a> 提出的想法，号召大家把 404 页面贡献出来，帮助丢失孩子的父母，现在 QQ空间推了国内版本之后，我相信肯定可以帮助更多丢失孩子的父母，所以我也第一时间在自己的博客上用上。</p>
+
+<p>对于 WP 博客来说，实现这个功能非常简单，只需要将当前主题的的 404.php中添加:</p>
+	<?php echo( '<script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>' ); ?>
+
+
+<p>对于我所用的这个模版，最终代码类似这样：</p>
+
+	<?php
+	/**
+	* The template for displaying 404 pages (Not Found).
+	*
+	* @package WordPress
+	* @subpackage Twenty_Twelve
+	* @since Twenty Twelve 1.0
+	*/
+	 
+	get_header(); ?>
+	 
+	<div id="primary" class="site-content">
+	<div id="content" role="main">
+	 
+	<article id="post-0" class="post error404 no-results not-found">
+	<header class="entry-header">
+	<h1 class="entry-title"><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it?', 'twentytwelve' ); ?></h1>
+	</header>
+	 
+	<div class="entry-content">
+	<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'twentytwelve' ); ?></p>
+	<?php echo( '<script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8"></script>' ); ?>
+	<?php get_search_form(); ?>
+	</div><!-- .entry-content -->
+	</article><!-- #post-0 -->
+	 
+	</div><!-- #content -->
+	</div><!-- #primary -->
+	 
+	<?php get_footer(); ?>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/404-page-we-can-make-a-difference" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/use-memcache-on-wordpress">Use Memcache on Wordpress</a> <span class="date">2013-10-07</span></h1>
+
+  <p><a href="http://wordpress.org/plugins/memcached/installation/">wordpress plugins memcached </a></p>
+
+<p>&nbsp;
+<ol>
+	<li>Install <a href="http://danga.com/memcached" rel="nofollow">memcached</a> on at least one server. Note the connection info. The default is <code>127.0.0.1:11211</code>.</li>
+	<li>Install the <a href="http://pecl.php.net/package/memcache" rel="nofollow">PECL memcache extension</a></li>
+	<li>Copy object-cache.php to wp-content</li>
+</ol></p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/use-memcache-on-wordpress" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/install-pp2p-vpn-server-on-ubuntu">Install PP2P VPN Server on Ubuntu</a> <span class="date">2013-10-07</span></h1>
+
+  <p>接着用下面的命令更新你的软件包数据库
+<pre>apt-get update</pre>
+现在我们可以正式安装VPN Server了。这里我们选择PPTP(VPN 协议的一种),因为简单，一条命令搞定。剩下的无非是一些配置。
+<pre>apt-get install PPTPd</pre>
+PPTPd安装完成后，编辑/etc/PPTPd.conf文件，去掉下面两行的注释或者直接添加这两行(在文件的最后).这一步是配置ip地址的范围。
+<pre>localip 192.168.7.1 remoteip 192.168.0.2-254</pre>
+然后在/etc/ppp/chap-secrets文件中添加VPN用户，按照下面的格式,每个用户一行。
+<pre>username PPTPd password *</pre>
+为了让你的用户连上VPN后能够正常地解析域名，我们需要手动设置DNS. 编辑/etc/ppp/options，找到ms-dns这一项，设置你的DNS.这里我推荐的是Google 最近发布的<a href="http://code.google.com/speed/public-dns/" target="_blank">Public DNS</a>,原因是因为好记。
+<pre>ms-dns 8.8.8.8 ms-dns 8.8.4.4</pre>
+编辑/etc/sysctl.conf文件，找到”net.ipv4.ip_forward=1″这一行，去掉前面的注释。
+<pre>net.ipv4.ip_forward=1</pre>
+运行下面的命令让配置生效。
+<pre>sysctl -p</pre>
+重启PPTPd服务
+<pre>/etc/init.d/PPTPd restart</pre>
+最后开启iptables转发
+<pre>/sbin/iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE</pre>
+将上面的命令加到/etc/rc.local exit 0 前面，开机自动添加NAT转发路由。</p>
+
+<p>OK,安装完毕。</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/install-pp2p-vpn-server-on-ubuntu" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/how-to-install-and-use-memcache-on-ubuntu-12-0">How To Install and Use Memcache on Ubuntu 12.0</a> <span class="date">2013-10-07</span></h1>
+
+  <p><a href="https://www.digitalocean.com/community/articles/how-to-install-and-use-memcache-on-ubuntu-12-04">via</a>
+<h3>About Memcache</h3></p>
+
+<p><hr /></p>
+
+<p>Memcache is a system that works to speed up virtual private servers by caching server information. The program allows you to allocate a specific amount of the server ram toward caching recently queried data for a certain amount of time. Once the data is requested again, memcache speeds up the process of retrieving it by displaying the cached information instead of generating the result from the database.
+<h2>Setup</h2>
+The steps in this tutorial require the user to have root privileges. You can see how to set that up in the <a href="https://www.digitalocean.com/community/articles/how-to-add-and-delete-users-on-ubuntu-12-04-and-centos-6">Basic Users Tutorial</a>.</p>
+
+<p>Before starting off, it’s a good idea to update apt-get to make sure that all of the packages we download to the VPS are up to date.
+<pre lang="bash">sudo apt-get update</pre>
+Additionally, you should have MySQL and PHP installed on the virtual server.
+<pre lang="bash">sudo apt-get install mysql-server php5-mysql php5 php5-memcache</pre>
+&nbsp;
+<h2>Install Memcache</h2></p>
+
+<p><hr /></p>
+
+<p>Installing memcache takes several steps.</p>
+
+<p>To start, install memcached via apt-get.
+<pre lang="bash">sudo apt-get install memcached</pre>
+The next step is to install php-pear, the repository that stores memcache.
+<pre lang="bash">sudo apt-get install php-pear</pre>
+If you do not have a compiler on your server, you can download build-essential in order to install memcache:
+<pre lang="bash">sudo apt-get install build-essential</pre>
+Finally use PECL (PHP Extension Community Library) to install memcache:
+<pre lang="bash">sudo pecl install memcache</pre>
+Say yes by pressing enter during the installation when you are asked if you would like to “Enable memcache session handler support? [yes] :”</p>
+
+<p>Once you have completed the installation of memcache with PECL on the VPS, add memcached to memcache.ini:
+<pre>echo "extension=memcache.so" | sudo tee /etc/php5/conf.d/memcache.ini</pre>
+Now you are ready to start using Memcache.
+<h2>Confirm Memcache and See Stats</h2></p>
+
+<p><hr /></p>
+
+<p>After Memcache is downloaded, you can check that it has been installed by searching for it:
+<pre lang="bash">ps aux | grep memcache</pre>
+Additionally, you can see the memcache stats by typing:
+<pre lang="bash"> echo "stats settings" | nc localhost 11211</pre>
+&nbsp;
+<h2>Step Three—How Memcache Works</h2></p>
+
+<p><hr /></p>
+
+<p>Memcache works by redirecting code to first attempt to retrieve data from the cache before querying the server’s database. The cache populates by saving recently retrieved server data for a certain amount of time. By caching recently requested information, future queries do not have to go through the longer process of retrieving the information from a database and can, instead, access it through the cache.</p>
+
+<p>The memcache page shows this abbreviated code on its homepage to summarize the memcache process:
+<pre lang="php" escaped="true">function get_foo(foo_id)
+    foo = memcached_get("foo:" . foo_id)
+    return foo if defined foo</pre></p>
+
+<p>    foo = fetch_foo_from_database(foo_id)<br />
+    memcached_set("foo:" . foo_id, foo)<br />
+    return foo<br />
+end
+<h2>A Simple Memcache Example</h2></p>
+
+<p><hr /></p>
+
+<p>This section will set up a simple php script to use memcache for retrieving a single value originally found in a mysql table.</p>
+
+<p>The following steps set up a mysql user who can access the appropriate database, create a table to query, and insert the one value that we will test in the new mysql table.</p>
+
+<p>Log into mysql: <code>mysql -u root -p</code> and execute the following commands:
+<pre lang="sql">use test;</pre></p>
+
+<p>grant all on test.* to test@localhost identified by 'testing123';</p>
+
+<p>create table example (id int, name varchar(30));</p>
+
+<p>insert into example values (1, "new_data");</p>
+
+<p>exit;
+Once you have exited MySQL, create the memcache script file:
+<pre lang="bash">nano memtest.php</pre>
+We are now going to build up the php script step by step (the entire script will be at the end of the section):
+<ul>
+<ul>
+	<li>Start off by creating a new persistent connection with memcache, which runs on memcache’s default port, 11211.
+<pre lang="php" escaped="true">&lt;?php
+$meminstance = new Memcache();
+$meminstance-&gt;pconnect('localhost', 11211);</pre>
+</li>
+</ul>
+</ul>
+&nbsp;
+<ul>
+<ul>
+	<li>The next step is to connect to the new mysql database with the user that we created earlier:
+<pre lang="php" escaped="true">mysql_connect("localhost", "test", "testing123") or die(mysql_error());
+mysql_select_db("test") or die(mysql_error());</pre>
+</li>
+</ul>
+</ul>
+&nbsp;
+<ul>
+<ul>
+	<li>After that, go ahead and create the query that we will pose to the server, as well as provide a key to identify that specific action:
+<pre lang="php" escaped="true">$query = "select id from example where name = 'new_data'";
+$querykey = "KEY" . md5($query);</pre>
+</li>
+</ul>
+</ul>
+&nbsp;
+<ul>
+	<li>The script first searches the cache for the answer to the query. If the result does not exist, the script reroutes the question to the original database. Once the query has been answered by the original database, the script stores the result in memcache, using the “set” command-- which both saves it and allows the user to designate the number of seconds that it should remain in the cache (600 would save it in the cache for 10 minutes).When we run the script for the first time, it will inform us that the data was collected from the mysql database. However, as it does so, it stores the information in the cache, so that a second run of the script retrieves it from the cache and lets the user know.In 10 minutes the cache is emptied once more and running the script will make it access the database once again.
+<pre lang="php" escaped="true">$result = $meminstance-&gt;get($querykey);</pre></li></ul></p>
+
+<p>if (!$result) {<br />
+       $result = mysql_fetch_array(mysql_query("select id from example where name = 'new_data'")) or die('mysql error');<br />
+       $meminstance-&gt;set($querykey, $result, 0, 600);<br />
+print "got result from mysql\n";<br />
+return 0;<br />
+}</p>
+
+<p>print "got result from memcached\n";<br />
+return 0;</p>
+
+<p>?&gt;
+
+
+Altogether the script looks like this:
+<pre lang="php" escaped="true">&lt;?php
+$meminstance = new Memcache();
+$meminstance-&gt;pconnect('localhost', 11211);</pre></p>
+
+<p>mysql_connect("localhost", "test", "testing123") or die(mysql_error());<br />
+mysql_select_db("test") or die(mysql_error());</p>
+
+<p>$query = "select id from example where name = 'new_data'";<br />
+$querykey = "KEY" . md5($query);</p>
+
+<p>$result = $meminstance-&gt;get($querykey);</p>
+
+<p>if (!$result) {<br />
+       $result = mysql_fetch_array(mysql_query("select id from example where name = 'new_data'")) or die('mysql error');<br />
+       $meminstance-&gt;set($querykey, $result, 0, 600);<br />
+print "got result from mysql\n";<br />
+return 0;<br />
+}</p>
+
+<p>print "got result from memcached\n";<br />
+return 0;</p>
+
+<p>?&gt;
+Running the script on the command line produces the following results:
+<pre lang="shell"># php memtest.php 
+got result from mysql</pre></p>
+
+<p># php memtest.php <br />
+got result from memcached</p>
+
+<p># php memtest.php <br />
+got result from memcached
+&nbsp;</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/how-to-install-and-use-memcache-on-ubuntu-12-0" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/install-dropbox-on-ubuntu-server-10-11">Install Dropbox On Ubuntu Server (10 &amp; 11)</a> <span class="date">2013-10-06</span></h1>
+
+  <p><a href="http://ubuntuservergui.com/ubuntu-server-guide/install-dropbox-ubuntu-server">via</a></p>
+
+<p>This post will help you install the Linux Dropbox client on your headless Ubuntu Server and link it up to your Dropbox account. Unlike the process of <a href="http://ubuntuservergui.com/ubuntu-server-guide/mount-s3-ubuntu-server">mounting an S3 bucket</a> we looked at before the Dropbox approach is a much better solution for sharing files. If you’re a daily Dropbox user you’ll quickly get hooked on the convenience of having your servers in the same file sharing loop as all your other Dropbox connected devices!</p>
+
+<p>&nbsp;
+<h4>Installing Dropbox</h4>
+Start off by downloading the Linux version of Dropbox onto your server. These steps have been tested on Ubuntu Server 10.10 and 11.04.</p>
+
+<p>Download the <em>32Bit Version</em>
+<div>
+<div>
+<pre>wget -O dropbox.tar.gz "http://www.dropbox.com/download/?plat=lnx.x86"</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Download the <em>64Bit Version</em>
+<div>
+<div>
+<pre>wget -O dropbox.tar.gz "http://www.dropbox.com/download/?plat=lnx.x86_64"</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>If you unsure which version you need you can quickly check by running <em>uname -a</em>.
+<div>
+<div>
+<pre>sudo uname -a</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>If the uname output has an <em>i686</em> at the end you need the 32Bit version and if it has<em>x86_64</em> you want the 64Bit version.</p>
+
+<p>When you extract the Dropbox archive it will automatically place its files in the home directory of the the user you’re logged in as under: <em>~/.dropbox</em>. You can always move these files later but its something to keep in mind.</p>
+
+<p>Extract the Dropbox archive
+<div>
+<div>
+<pre>tar -xzvf dropbox.tar.gz</pre>
+</div>
+</div>
+&nbsp;
+<h4>Linking Your Server to Your Dropbox Account</h4>
+Before you take the next step you’ll want to make sure your LANG <a href="https://help.ubuntu.com/community/EnvironmentVariables" target="_blank">environment variable</a> is set to a value other than NULL.</p>
+
+<p>Check the value of your <em>LANG</em> environment variable
+<div>
+<div>
+<pre>printenv LANG     // outputs en_US.UTF-8 on my machine</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>To connect the Dropbox client on your server to your Dropbox account you’ll need to copy the link it outputs into a browser window and then login to your Dropbox account.</p>
+
+<p>Run dropboxd on your server
+<div>
+<div>
+<pre>~/.dropbox-dist/dropboxd</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>It will start outputting a link similar to this one every few seconds
+<div>
+<div>
+<pre>This client is not linked to any account...
+Please visit https://www.dropbox.com/cli_link?host_id=1c1497d78b543178b9349a7c1a8b087a&amp;cl=en_US to link this machine.</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>The trick to a smooth link is to make sure you <strong>leave dropboxd running while you follow the link</strong>. You don’t need to access the link from the server you’re trying to install Dropbox on. You can copy and paste that link into a browser running on a separate machine and Dropbox will authorize the client running on your server.</p>
+
+<p>Once it succeeds you’ll see the message <em>Client successfully linked, Welcome!</em> on your server and it will stop printing the authorization link.</p>
+
+<p>Hit ctrl c to terminate the process
+<div>
+<div>
+<pre>Client successfully linked, Welcome!</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Once the Dropbox client on your server is successfully linked it will automatically create a Dropbox folder under ~/Dropbox for the user you’re logged in as. All your folders will be visible under the Dropbox folder but since the Dropbox service isn’t actually running on your server yet you you won’t be able to see the files inside these folders until the client is running and has a check to synchronize.</p>
+
+<p>You can manually start the service by running
+<div>
+<div>
+<pre>~/.dropbox-dist/dropbox</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>However, a better option for controlling the Dropbox client is to setup an Ubuntu service management script for it.
+<h4>Start Dropbox Automatically On Boot</h4>
+Dropbox provides a handy little service management script that makes it easy to start, stop and check the status of the Dropbox client.</p>
+
+<p>Create a new file for the service management script
+<div>
+<div>
+<pre>sudo vi /etc/init.d/dropbox</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Paste the following script into the new file
+<div>
+<div>
+<pre lang="bash">#!/bin/sh
+# dropbox service
+# Replace with linux users you want to run Dropbox clients for
+DROPBOX_USERS="user1 user2"</pre></div></div></p>
+
+<p>DAEMON=.dropbox-dist/dropbox</p>
+
+<p>start() {<br />
+    echo "Starting dropbox..."<br />
+    for dbuser in $DROPBOX_USERS; do<br />
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
+        if [ -x $HOMEDIR/$DAEMON ]; then<br />
+            HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $HOMEDIR/$DAEMON<br />
+        fi<br />
+    done<br />
+}</p>
+
+<p>stop() {<br />
+    echo "Stopping dropbox..."<br />
+    for dbuser in $DROPBOX_USERS; do<br />
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
+        if [ -x $HOMEDIR/$DAEMON ]; then<br />
+            start-stop-daemon -o -c $dbuser -K -u $dbuser -x $HOMEDIR/$DAEMON<br />
+        fi<br />
+    done<br />
+}</p>
+
+<p>status() {<br />
+    for dbuser in $DROPBOX_USERS; do<br />
+        dbpid=`pgrep -u $dbuser dropbox`<br />
+        if [ -z $dbpid ] ; then<br />
+            echo "dropboxd for USER $dbuser: not running."<br />
+        else<br />
+            echo "dropboxd for USER $dbuser: running (pid $dbpid)"<br />
+        fi<br />
+    done<br />
+}</p>
+
+<p>case "$1" in</p>
+
+<p>    start)<br />
+        start<br />
+        ;;</p>
+
+<p>    stop)<br />
+        stop<br />
+        ;;</p>
+
+<p>    restart|reload|force-reload)<br />
+        stop<br />
+        start<br />
+        ;;</p>
+
+<p>    status)<br />
+        status<br />
+        ;;</p>
+
+<p>    *)<br />
+        echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"<br />
+        exit 1</p>
+
+<p>esac</p>
+
+<p>exit 0
+
+
+&nbsp;</p>
+
+<p>Make sure you replace the value of <em>DROPBOX_USERS</em> with a comma separated list of the linux users on your machine you want to run the Dropbox client to run for. Each user in the list should have a copy of the Dropbox files and folders that you extracted from the archive, available under their home directory.</p>
+
+<p>Make sure the script is executable and add it to default system startup run levels
+<div>
+<div>
+<pre>sudo chmod +x /etc/init.d/dropbox
+sudo update-rc.d dropbox defaults</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Control the Dropbox client like any other Ubuntu service
+<div>
+<div>
+<pre>sudo service dropbox start|stop|reload|force-reload|restart|status</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><img title="Dropbox Delorean By Dropbox Artwork Team" alt="Dropbox Delorean By Dropbox Artwork Team" src="http://ubuntuservergui.com/wp-content/uploads/2011/05/dropbox-delorean.png" width="528" height="296" /></p>
+
+<p>Depending upon the number of files you have on Dropbox and the speed of your internet connection it may take some time for the Dropbox client to synchronize everything.
+<h4>Check Status with Dropbox CLI</h4>
+Dropbox has a command line python script available separately to provide more functionality and details on the status of the Dropbox client.</p>
+
+<p>Download the dropbox.py script and adjust the file permissions
+<div>
+<div>
+<pre>wget -O ~/.dropbox/dropbox.py "http://www.dropbox.com/download?dl=packages/dropbox.py"
+chmod 755 ~/.dropbox/dropbox.py</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>You can download the script anywhere you like, I’ve included it along with the rest of the Dropbox files.</p>
+
+<p>Now you can easily check the status of the Dropbox client
+<div>
+<div>
+<pre>~/.dropbox/dropbox.py status
+Downloading 125 files (303.9 KB/sec, 1 hr left)</pre>
+</div>
+</div>
+&nbsp;</p>
+
+<p>Get a full list of CLI commands
+<div>
+<div>
+<pre>~/.dropbox/dropbox.py help</pre></div></div></p>
+
+<p>Note: use dropbox help &lt;command&gt; to view usage for a specific command.</p>
+
+<p> status       get current status of the dropboxd<br />
+ help         provide help<br />
+ puburl       get public url of a file in your dropbox<br />
+ stop         stop dropboxd<br />
+ running      return whether dropbox is running<br />
+ start        start dropboxd<br />
+ filestatus   get current sync status of one or more files<br />
+ ls           list directory contents with current sync status<br />
+ autostart    automatically start dropbox at login<br />
+ exclude      ignores/excludes a directory from syncing
+
+
+&nbsp;</p>
+
+<p>Use the <em>exclude</em> command to keep specific files or folders from syncing to your server
+<div>
+<div>
+<pre>~/.dropbox/dropbox.py help exclude</pre></div></div></p>
+
+<p>dropbox exclude [list]<br />
+dropbox exclude add [DIRECTORY] [DIRECTORY] ...<br />
+dropbox exclude remove [DIRECTORY] [DIRECTORY] ...</p>
+
+<p>"list" prints a list of directories currently excluded from syncing.  <br />
+"add" adds one or more directories to the exclusion list, then resynchronizes Dropbox. <br />
+"remove" removes one or more directories from the exclusion list, then resynchronizes Dropbox.<br />
+With no arguments, executes "list". <br />
+Any specified path must be within Dropbox.
+
+
+&nbsp;</p>
+
+<p>Once the Dropbox service is running and fully syncrhonized you can access all your Dropbox files and easily share files on your server with all your other Dropbox connected gadgets!</p>
+
+<p>For more resources and troubleshooting tips visit the <a href="http://forums.dropbox.com/" target="_blank">Dropbox forums</a>. Happy syncing!</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/install-dropbox-on-ubuntu-server-10-11" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/enable-mod-rewrite-in-apache2">enable mod rewrite in apache2</a> <span class="date">2013-09-22</span></h1>
+
+  <p>In order to use mod_rewrite you can type the following command in the terminal:</p>
+
+<p>[plain]a2enmod rewrite<br />
+[/plain]</p>
+
+<p>Restart apache2 after</p>
+
+<p>[plain]/etc/init.d/apache2 restart<br />
+[/plain]</p>
+
+<p>or</p>
+
+<p>[plain]service apache2 restart<br />
+[/plain]</p>
+
+<p>Then, if you'd like, you can use the following .htaccess file.</p>
+
+<pre>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
+&lt;/IfModule&gt;
+</pre>
+
+<p>The above .htaccess file (if placed in your DocumentRoot) will redirect all traffic to an index.php file in the DocumentRoot unless the file exists.</p>
+
+<p>So, let's say you have the following directory structure and httpdocs is the DocumentRoot</p>
+
+<pre>httpdocs/
+    .htaccess
+    index.php
+    images/
+        hello.png
+    js/
+        jquery.js
+    css/
+        style.css
+includes/
+    app/
+        app.php
+</pre>
+
+<p>Any file that exists in httpdocs will be served to the requester using the .htaccess shown above, however, everything else will be redirected to httpdocs/index.php. Your application files in includes/app will not be accessible.</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/enable-mod-rewrite-in-apache2" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/php-display-cgminer-status">php 显示cgminer当前部分状态</a> <span class="date">2013-09-21</span></h1>
+
+  <pre><code>&lt;?php
+#
+# Sample Socket I/O to CGMiner API
+#
+date_default_timezone_set('Asia/Chongqing');
+function getsock($addr, $port)
+{
+ $socket = null;
+ $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+ if ($socket === false || $socket === null)
+ {
+    $error = socket_strerror(socket_last_error());
+    $msg = &quot;socket create(TCP) failed&quot;;
+    echo &quot;ERR: $msg '$error'\n&quot;;
+    return null;
+ }
+
+ $res = socket_connect($socket, $addr, $port);
+ if ($res === false)
+ {
+    $error = socket_strerror(socket_last_error());
+    $msg = &quot;socket connect($addr,$port) failed&quot;;
+    echo &quot;ERR: $msg '$error'\n&quot;;
+    socket_close($socket);
+    return null;
+ }
+ return $socket;
+}
+#
+# Slow ...
+function readsockline($socket)
+{
+ $line = '';
+ while (true)
+ {
+    $byte = socket_read($socket, 1);
+    if ($byte === false || $byte === '')
+        break;
+    if ($byte === &quot;&amp;#92;&amp;#48;&quot;)
+        break;
+    $line .= $byte;
+ }
+ return $line;
+}
+#
+function request($cmd)
+{
+ $socket = getsock('127.0.0.1', 4028);
+ if ($socket != null)
+ {
+    socket_write($socket, $cmd, strlen($cmd));
+    $line = readsockline($socket);
+    socket_close($socket);
+
+    if (strlen($line) == 0)
+    {
+        echo &quot;WARN: '$cmd' returned nothing\n&quot;;
+        return $line;
+    }
+
+    #print &quot;$cmd returned '$line'\n&quot;;
+
+    if (substr($line,0,1) == '{')
+        return json_decode($line, true);
+}
+
+ return null;
+}
+#
+ $r = request(&quot;{\&quot;command\&quot;:\&quot;summary\&quot;,\&quot;parameter\&quot;:\&quot;\&quot;}&quot;);
+ $status = $r['STATUS'][0];
+ $when = $status['When'];
+
+ $description = $status['Description'];
+ $summary = $r['SUMMARY'][0];
+ $speed = $summary['MHS av'];
+ $elspsed = $summary['Elapsed'];
+ $found_blocks = $summary['Found Blocks'];
+ $accepted = $summary['Accepted'];
+ $rejected = $summary['Rejected'];
+ $hardware_err = $summary['Hardware Errors'];
+ $utility = $summary['Utility'];
+ $discarded = $summary['Discarded'];
+ $stale = $summary['Stale'];
+ $net_block = $summary['Network Blocks'];
+ $total_mh = $summary['Total MH'];
+ $work_ulti = $summary['Work Utility'];
+ $best_share = $summary['Best Share'];
+ $energy = $elspsed*0.5*$utility/1000/3600;
+
+?&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+    &lt;link rel=&quot;icon&quot; href=&quot;./favicon.ico&quot; type=&quot;image/x-icon&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        table,td,th
+        {
+            border:1px solid black;
+        }
+        h1 {font-family:verdana,arial,sans; font-size:15pt; color:blue;}
+        td { text-align:center;font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#ecffff;}
+        td.two { font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#ecffff; }
+        td.h { font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#c4ffff; }
+        td.err { font-family:verdana,arial,sans; font-size:13pt; color:black; background:#ff3050; }
+        td.warn { font-family:verdana,arial,sans; font-size:13pt; color:black; background:#ffb050; }
+        td.sta { font-family:verdana,arial,sans; font-size:13pt; color:green; }
+        td.tot { font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#fff8f2; }
+        td.lst { font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#ffffdd; }
+        td.hi { font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#f6ffff; }
+        td.lo { font-family:verdana,arial,sans; font-size:13pt; color:blue; background:#deffff; }
+
+    &lt;/style&gt;
+    &lt;title&gt;ZLY's miner's status - &lt;?php echo $description;?&gt; &lt;/title&gt;
+    &lt;script&gt;
+        // var url = &quot;https://www.btcguild.com/api.php?api_key=50bd432d484ac778128f2cc98621d0f3&quot;;
+        // var xmlHttp = null;
+
+        // xmlHttp = new XMLHttpRequest();
+        // xmlHttp.open( &quot;GET&quot;, url, false );
+        // xmlHttp.send( null );
+        // xmlHttp.setRequestHeader(&quot;access-control-allow-origin&quot;,&quot;*&quot;);
+        // xmlHttp.setOrigin(&quot;https://www.btcguild.com/&quot;);
+        // var resp = xmlHttp.responseText;
+        // var unpaidBTC = JSON.parse(resp).user.unpaid_rewards;
+        // document.getElementById(&quot;unpaid_rewards&quot;).value = unpaidBTC;
+        // alert(unpaidBTC);
+
+    &lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;center&gt;
+&lt;h1&gt; Miner Status:&lt;/h1&gt;
+&lt;table border=&quot;1&quot;&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Average Speed&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $speed;?&gt; MH/s&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Running Time&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo round(floatval($elspsed)/60/60/24,2);?&gt; Days&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Hardware Errors&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $hardware_err;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Energy Cost&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo round($energy,2);?&gt; kWh&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;When&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo date('m-d G:i:s',$when);?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Found Blocks&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $found_blocks;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Accepted&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $accepted;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Rejected&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $rejected;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Utility&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $utility;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Discarded&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $discarded;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Stale&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $stale;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Network Blocks&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $net_block;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Total TH&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo round(floatval($total_mh)/1000/1000,3);?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+    &lt;td&gt;Best Share&lt;/td&gt;
+    &lt;td&gt;&lt;?php echo $best_share;?&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/php-display-cgminer-status" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/install-unbuntu-server-via-usb-stick">U盘安装 Ubuntu Server 12.04.3 LTS</a> <span class="date">2013-09-20</span></h1>
+
+  <p><ol>
+	<li>格式化U盘，确保U盘是FAT32格式</li>
+	<li>使用<a href="http://sourceforge.net/projects/unetbootin/">Unetbootin</a>将iso文件写入U盘</li>
+	<li>将安装iso拷贝如U盘根目录</li>
+	<li>重启电脑，设置BIOS为USB-HDD启动</li>
+	<li>按照流程安装，会提示找不到CD-ROM</li>
+	<li>ALT+F2 to another console and</li>
+	<li>Mount the usb-stick to /mnt/usb</li>
+	<li>[plain]<br />
+mkdir /mnt/usb</li></ol></p>
+
+<p>tail -n 100 /var/log/syslog<br />
+#determine which one is your usb device</p>
+
+<p>mount -t vfat /dev/your_usb_device/mnt/usb</p>
+
+<p>mount -t iso9660 -o loop /mnt/usb/ubuntu-12.04.3-server-i386 /cdrom</p>
+
+<p>#Mount the server-image file to /cdrom</p>
+
+<p>[/plain]
+	<li>exit from the terminal and ALT+F1 back to main installer screen</li>
+	<li>Press ESC to avoid trying to mount cd-rom</li>
+	<li>In main installer menu chose "Detect and mount CD-rom"</li>
+	<li>按照正常流程安装</li>
+</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/install-unbuntu-server-via-usb-stick" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+<div class="post">
+  <h1 class="title"><a href="/2013/hello-world">世界，你好！</a> <span class="date">2013-09-20</span></h1>
+
+  <p>欢迎使用WordPress。这是系统自动生成的演示文章。编辑或者删除它，然后开始您的博客！</p>
+
+	
+<!---
+  <div class="more">
+    <a href="/2013/hello-world" class="btn">Read more..</a>
+  </div>
+ --->
+</div>
+
+  </div>
+</div>
+
+      </div>
+
+      <footer>
+        <p>&copy; Firstname Lastname 2013 
+          with help from <a href="http://github.com/wendal/gor" target="_blank" title="Gor -- Fast Blog">Gor</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+		  and Idea from <a href="http://ruhoh.com" target="_blank" title="The Definitive Technical Blogging Framework">ruhoh</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+<script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.js"></script>
+<script>
+  var pres = document.getElementsByTagName("pre");
+  for (var i=0; i < pres.length; ++i) {
+    pres[i].className = "prettyprint linenums";
+  }
+  prettyPrint();
+</script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-123-12']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>
