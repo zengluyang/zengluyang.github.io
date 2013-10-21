@@ -188,86 +188,71 @@ Dropbox provides a handy little service management script that makes it easy to 
 &nbsp;</p>
 
 <p>Paste the following script into the new file
-<div>
-<div>
-<pre lang="bash">#!/bin/sh
+<pre lang="bash"><code>
+#!/bin/sh
 # dropbox service
 # Replace with linux users you want to run Dropbox clients for
-DROPBOX_USERS="user1 user2"</pre></div></div></p>
-
-<p>DAEMON=.dropbox-dist/dropbox</p>
-
-<p>start() {<br />
-    echo "Starting dropbox..."<br />
-    for dbuser in $DROPBOX_USERS; do<br />
-        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
-        if [ -x $HOMEDIR/$DAEMON ]; then<br />
-            HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $HOMEDIR/$DAEMON<br />
-        fi<br />
-    done<br />
-}</p>
-
-<p>stop() {<br />
-    echo "Stopping dropbox..."<br />
-    for dbuser in $DROPBOX_USERS; do<br />
-        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
-        if [ -x $HOMEDIR/$DAEMON ]; then<br />
-            start-stop-daemon -o -c $dbuser -K -u $dbuser -x $HOMEDIR/$DAEMON<br />
-        fi<br />
-    done<br />
-}</p>
-
-<p>status() {<br />
-    for dbuser in $DROPBOX_USERS; do<br />
-        dbpid=`pgrep -u $dbuser dropbox`<br />
-        if [ -z $dbpid ] ; then<br />
-            echo "dropboxd for USER $dbuser: not running."<br />
-        else<br />
-            echo "dropboxd for USER $dbuser: running (pid $dbpid)"<br />
-        fi<br />
-    done<br />
-}</p>
-
-<p>case "$1" in</p>
-
-<p>    start)<br />
-        start<br />
-        ;;</p>
-
-<p>    stop)<br />
-        stop<br />
-        ;;</p>
-
-<p>    restart|reload|force-reload)<br />
-        stop<br />
-        start<br />
-        ;;</p>
-
-<p>    status)<br />
-        status<br />
-        ;;</p>
-
-<p>    *)<br />
-        echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"<br />
-        exit 1</p>
-
-<p>esac</p>
-
-<p>exit 0
-
-
-&nbsp;</p>
-
-<p>Make sure you replace the value of <em>DROPBOX_USERS</em> with a comma separated list of the linux users on your machine you want to run the Dropbox client to run for. Each user in the list should have a copy of the Dropbox files and folders that you extracted from the archive, available under their home directory.</p>
-
-<p>Make sure the script is executable and add it to default system startup run levels
-<div>
-<div>
-<pre>sudo chmod +x /etc/init.d/dropbox
-sudo update-rc.d dropbox defaults</pre>
-</div>
-</div>
-&nbsp;</p>
+DROPBOX_USERS="user1 user2"
+ 
+DAEMON=.dropbox-dist/dropbox
+ 
+start() {
+    echo "Starting dropbox..."
+    for dbuser in $DROPBOX_USERS; do
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`
+        if [ -x $HOMEDIR/$DAEMON ]; then
+            HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $HOMEDIR/$DAEMON
+        fi
+    done
+}
+ 
+stop() {
+    echo "Stopping dropbox..."
+    for dbuser in $DROPBOX_USERS; do
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`
+        if [ -x $HOMEDIR/$DAEMON ]; then
+            start-stop-daemon -o -c $dbuser -K -u $dbuser -x $HOMEDIR/$DAEMON
+        fi
+    done
+}
+ 
+status() {
+    for dbuser in $DROPBOX_USERS; do
+        dbpid=`pgrep -u $dbuser dropbox`
+        if [ -z $dbpid ] ; then
+            echo "dropboxd for USER $dbuser: not running."
+        else
+            echo "dropboxd for USER $dbuser: running (pid $dbpid)"
+        fi
+    done
+}
+ 
+case "$1" in
+ 
+    start)
+        start
+        ;;
+ 
+    stop)
+        stop
+        ;;
+ 
+    restart|reload|force-reload)
+        stop
+        start
+        ;;
+ 
+    status)
+        status
+        ;;
+ 
+    *)
+        echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"
+        exit 1
+ 
+esac
+exit 0
+</code></pre>
 
 <p>Control the Dropbox client like any other Ubuntu service
 <div>

@@ -200,9 +200,9 @@ Cygwin的官方网站下载Cygwin的安装程序，Cygwin的官方网址是：ht
 <div class="post">
   <h1 class="title"><a href="/2013/404-page-we-can-make-a-difference">404 页面，其实我们可以做的更多</a> </h1> <span class="date">本条目发布于<script>document.write(new Date("2013-10-18").toLocaleDateString());</script></span>
   <p>404 页面，除了显示冷冰冰的 404 Not Found 之外，其实我们可以做得更多。QQ空间就把 404页面和失踪的孩子联系到了一起，现在访问到QQ空间的一个任意不存在的页面（404页面），比如：<a href="http://qzone.qq.com/404" target="_blank">http://qzone.qq.com/404</a>，都能看到一个失踪孩子的信息：
-<p style="text-align: center;"><a style="font-size: 1rem; color: #0f3647;" href="http://lux.ssh01.com/blog/wp-content/uploads/2013/10/4041.png"><img class="size-medium wp-image-89 aligncenter" alt="404" src="http://lux.ssh01.com/blog/wp-content/uploads/2013/10/4041.png" /></a></p>
+<img alt="404" src="http://lux.ssh01.com/blog/wp-content/uploads/2013/10/4041.png" />
 
-<p>将 404 页面和失踪的孩子联系在一起最早是国外一个网站 <a href="http://notfound.org/" target="_blank">notfound.org</a> 提出的想法，号召大家把 404 页面贡献出来，帮助丢失孩子的父母，现在 QQ空间推了国内版本之后，我相信肯定可以帮助更多丢失孩子的父母，所以我也第一时间在自己的博客上用上。</p></p>
+将 404 页面和失踪的孩子联系在一起最早是国外一个网站 <a href="http://notfound.org/" target="_blank">notfound.org</a> 提出的想法，号召大家把 404 页面贡献出来，帮助丢失孩子的父母，现在 QQ空间推了国内版本之后，我相信肯定可以帮助更多丢失孩子的父母，所以我也第一时间在自己的博客上用上。</p>
 
 <p>对于 WP 博客来说，实现这个功能非常简单，只需要将当前主题的的 404.php中添加:</p>
 
@@ -577,86 +577,71 @@ Dropbox provides a handy little service management script that makes it easy to 
 &nbsp;</p>
 
 <p>Paste the following script into the new file
-<div>
-<div>
-<pre lang="bash">#!/bin/sh
+<pre lang="bash"><code>
+#!/bin/sh
 # dropbox service
 # Replace with linux users you want to run Dropbox clients for
-DROPBOX_USERS="user1 user2"</pre></div></div></p>
-
-<p>DAEMON=.dropbox-dist/dropbox</p>
-
-<p>start() {<br />
-    echo "Starting dropbox..."<br />
-    for dbuser in $DROPBOX_USERS; do<br />
-        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
-        if [ -x $HOMEDIR/$DAEMON ]; then<br />
-            HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $HOMEDIR/$DAEMON<br />
-        fi<br />
-    done<br />
-}</p>
-
-<p>stop() {<br />
-    echo "Stopping dropbox..."<br />
-    for dbuser in $DROPBOX_USERS; do<br />
-        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`<br />
-        if [ -x $HOMEDIR/$DAEMON ]; then<br />
-            start-stop-daemon -o -c $dbuser -K -u $dbuser -x $HOMEDIR/$DAEMON<br />
-        fi<br />
-    done<br />
-}</p>
-
-<p>status() {<br />
-    for dbuser in $DROPBOX_USERS; do<br />
-        dbpid=`pgrep -u $dbuser dropbox`<br />
-        if [ -z $dbpid ] ; then<br />
-            echo "dropboxd for USER $dbuser: not running."<br />
-        else<br />
-            echo "dropboxd for USER $dbuser: running (pid $dbpid)"<br />
-        fi<br />
-    done<br />
-}</p>
-
-<p>case "$1" in</p>
-
-<p>    start)<br />
-        start<br />
-        ;;</p>
-
-<p>    stop)<br />
-        stop<br />
-        ;;</p>
-
-<p>    restart|reload|force-reload)<br />
-        stop<br />
-        start<br />
-        ;;</p>
-
-<p>    status)<br />
-        status<br />
-        ;;</p>
-
-<p>    *)<br />
-        echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"<br />
-        exit 1</p>
-
-<p>esac</p>
-
-<p>exit 0
-
-
-&nbsp;</p>
-
-<p>Make sure you replace the value of <em>DROPBOX_USERS</em> with a comma separated list of the linux users on your machine you want to run the Dropbox client to run for. Each user in the list should have a copy of the Dropbox files and folders that you extracted from the archive, available under their home directory.</p>
-
-<p>Make sure the script is executable and add it to default system startup run levels
-<div>
-<div>
-<pre>sudo chmod +x /etc/init.d/dropbox
-sudo update-rc.d dropbox defaults</pre>
-</div>
-</div>
-&nbsp;</p>
+DROPBOX_USERS="user1 user2"
+ 
+DAEMON=.dropbox-dist/dropbox
+ 
+start() {
+    echo "Starting dropbox..."
+    for dbuser in $DROPBOX_USERS; do
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`
+        if [ -x $HOMEDIR/$DAEMON ]; then
+            HOME="$HOMEDIR" start-stop-daemon -b -o -c $dbuser -S -u $dbuser -x $HOMEDIR/$DAEMON
+        fi
+    done
+}
+ 
+stop() {
+    echo "Stopping dropbox..."
+    for dbuser in $DROPBOX_USERS; do
+        HOMEDIR=`getent passwd $dbuser | cut -d: -f6`
+        if [ -x $HOMEDIR/$DAEMON ]; then
+            start-stop-daemon -o -c $dbuser -K -u $dbuser -x $HOMEDIR/$DAEMON
+        fi
+    done
+}
+ 
+status() {
+    for dbuser in $DROPBOX_USERS; do
+        dbpid=`pgrep -u $dbuser dropbox`
+        if [ -z $dbpid ] ; then
+            echo "dropboxd for USER $dbuser: not running."
+        else
+            echo "dropboxd for USER $dbuser: running (pid $dbpid)"
+        fi
+    done
+}
+ 
+case "$1" in
+ 
+    start)
+        start
+        ;;
+ 
+    stop)
+        stop
+        ;;
+ 
+    restart|reload|force-reload)
+        stop
+        start
+        ;;
+ 
+    status)
+        status
+        ;;
+ 
+    *)
+        echo "Usage: /etc/init.d/dropbox {start|stop|reload|force-reload|restart|status}"
+        exit 1
+ 
+esac
+exit 0
+</code></pre>
 
 <p>Control the Dropbox client like any other Ubuntu service
 <div>
