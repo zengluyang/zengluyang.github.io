@@ -4,6 +4,16 @@
 		<loc>http://zengluyang.github.io/</loc>
 	</url>
 	<url>
+		<loc>http://zengluyang.github.io/2013/learning-ns-3-1.html</loc>
+		<lastmod>2013-10-28</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
+		<loc>http://zengluyang.github.io/2013/new-born.html</loc>
+		<lastmod>2013-10-28</lastmod>
+		<changefreq>weekly</changefreq>
+	</url>
+	<url>
 		<loc>http://zengluyang.github.io/2013/eclipse-cygwin-cdt-c-cpp-dev-env</loc>
 		<lastmod>2013-10-18</lastmod>
 		<changefreq>weekly</changefreq>
@@ -61,11 +71,6 @@
 	<url>
 		<loc>http://zengluyang.github.io/2013/arp-h</loc>
 		<lastmod>2013-09-12</lastmod>
-		<changefreq>weekly</changefreq>
-	</url>
-	<url>
-		<loc>http://zengluyang.github.io/2013/new-born.html</loc>
-		<lastmod>2013-02-08</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>
